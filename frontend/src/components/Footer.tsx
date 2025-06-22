@@ -8,25 +8,25 @@ const Footer: React.FC = () => {
       { name: 'Hub Map', href: '/hubs' },
       { name: 'Analytics', href: '/analytics' },
       { name: 'Community Portal', href: '/portal' },
-      { name: 'Admin Dashboard', href: '/admin' },
+      { name: 'Projects', href: '/projects' },
     ],
     resources: [
-      { name: 'Documentation', href: '/docs' },
-      { name: 'API Reference', href: '/api' },
-      { name: 'Support', href: '/support' },
-      { name: 'Status', href: '/status' },
+      { name: 'Solutions', href: '/solutions' },
+      { name: 'Impact Stories', href: '/impact' },
+      { name: 'How to Connect', href: '/connect' },
+      { name: 'Content Portal', href: '/content' },
     ],
     company: [
-      { name: 'About', href: '/about' },
-      { name: 'Partners', href: '/partners' },
-      { name: 'Careers', href: '/careers' },
-      { name: 'Contact', href: '/contact' },
+      { name: 'About Us', href: '/solutions' },
+      { name: 'Our Impact', href: '/impact' },
+      { name: 'Projects', href: '/projects' },
+      { name: 'Contact', href: '/content' },
     ],
     legal: [
-      { name: 'Privacy Policy', href: '/privacy' },
-      { name: 'Terms of Service', href: '/terms' },
-      { name: 'Cookie Policy', href: '/cookies' },
-      { name: 'Data Protection', href: '/data-protection' },
+      { name: 'Privacy Policy', href: '/solutions' },
+      { name: 'Terms of Service', href: '/solutions' },
+      { name: 'Data Protection', href: '/analytics' },
+      { name: 'Community Guidelines', href: '/content' },
     ],
   };
 
@@ -114,12 +114,12 @@ const Footer: React.FC = () => {
                 <ul role="list" className="mt-6 space-y-4">
                   {navigation.resources.map((item) => (
                     <li key={item.name}>
-                      <a
-                        href={item.href}
+                      <Link
+                        to={item.href}
                         className="text-sm leading-6 text-gray-600 hover:text-gray-900"
                       >
                         {item.name}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -131,12 +131,12 @@ const Footer: React.FC = () => {
                 <ul role="list" className="mt-6 space-y-4">
                   {navigation.company.map((item) => (
                     <li key={item.name}>
-                      <a
-                        href={item.href}
+                      <Link
+                        to={item.href}
                         className="text-sm leading-6 text-gray-600 hover:text-gray-900"
                       >
                         {item.name}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -146,12 +146,12 @@ const Footer: React.FC = () => {
                 <ul role="list" className="mt-6 space-y-4">
                   {navigation.legal.map((item) => (
                     <li key={item.name}>
-                      <a
-                        href={item.href}
+                      <Link
+                        to={item.href}
                         className="text-sm leading-6 text-gray-600 hover:text-gray-900"
                       >
                         {item.name}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>

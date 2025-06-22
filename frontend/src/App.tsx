@@ -28,7 +28,7 @@ import Footer from './components/Footer';
 function App() {
   return (
     <div className="min-h-screen bg-gray-50">
-      <Router>
+      <Router basename="/connected-access-hubs">
         <Navigation />
         <main className="flex-1">
           <Routes>
