@@ -1,0 +1,453 @@
+service: connected-access-hubs-backend
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+  stage: ${opt:stage, 'dev'}
+  environment:
+    STAGE: ${self:provider.stage}
+    HUBS_TABLE: ${self:service}-${self:provider.stage}-hubs
+    USERS_TABLE: ${self:service}-${self:provider.stage}-users
+    CONTENT_TABLE: ${self:service}-${self:provider.stage}-content
+    ANALYTICS_TABLE: ${self:service}-${self:provider.stage}-analytics
+    SURVEYS_TABLE: ${self:service}-${self:provider.stage}-surveys
+    REPORTS_TABLE: ${self:service}-${self:provider.stage}-reports
+    S3_BUCKET: ${self:service}-${self:provider.stage}-assets
+    JWT_SECRET: ${ssm:/connected-access-hubs/${self:provider.stage}/jwt-secret}
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+          Resource:
+            - "arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.HUBS_TABLE}"
+            - "arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}"
+            - "arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.CONTENT_TABLE}"
+            - "arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ANALYTICS_TABLE}"
+            - "arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.SURVEYS_TABLE}"
+            - "arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.REPORTS_TABLE}"
+        - Effect: Allow
+          Action:
+            - s3:GetObject
+            - s3:PutObject
+            - s3:DeleteObject
+          Resource:
+            - "arn:aws:s3:::${self:provider.environment.S3_BUCKET}/*"
+        - Effect: Allow
+          Action:
+            - ses:SendEmail
+            - ses:SendRawEmail
+          Resource: "*"
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
+
+functions:
+  # Hub Management
+  getHubs:
+    handler: src/functions/hubs/getHubs.handler
+    events:
+      - http:
+          path: /api/hubs
+          method: get
+          cors: true
+
+  getHub:
+    handler: src/functions/hubs/getHub.handler
+    events:
+      - http:
+          path: /api/hubs/{id}
+          method: get
+          cors: true
+
+  createHub:
+    handler: src/functions/hubs/createHub.handler
+    events:
+      - http:
+          path: /api/hubs
+          method: post
+          cors: true
+          authorizer:
+            name: authorizerFunc
+            resultTtlInSeconds: 0
+
+  updateHub:
+    handler: src/functions/hubs/updateHub.handler
+    events:
+      - http:
+          path: /api/hubs/{id}
+          method: put
+          cors: true
+          authorizer:
+            name: authorizerFunc
+            resultTtlInSeconds: 0
+
+  deleteHub:
+    handler: src/functions/hubs/deleteHub.handler
+    events:
+      - http:
+          path: /api/hubs/{id}
+          method: delete
+          cors: true
+          authorizer:
+            name: authorizerFunc
+            resultTtlInSeconds: 0
+
+  # Analytics
+  getAnalytics:
+    handler: src/functions/analytics/getAnalytics.handler
+    events:
+      - http:
+          path: /api/analytics
+          method: get
+          cors: true
+          authorizer:
+            name: authorizerFunc
+            resultTtlInSeconds: 0
+
+  getHubAnalytics:
+    handler: src/functions/analytics/getHubAnalytics.handler
+    events:
+      - http:
+          path: /api/analytics/hubs/{id}
+          method: get
+          cors: true
+          authorizer:
+            name: authorizerFunc
+            resultTtlInSeconds: 0
+
+  recordAnalytics:
+    handler: src/functions/analytics/recordAnalytics.handler
+    events:
+      - http:
+          path: /api/analytics
+          method: post
+          cors: true
+
+  # Content Management
+  getContent:
+    handler: src/functions/content/getContent.handler
+    events:
+      - http:
+          path: /api/content
+          method: get
+          cors: true
+
+  createContent:
+    handler: src/functions/content/createContent.handler
+    events:
+      - http:
+          path: /api/content
+          method: post
+          cors: true
+          authorizer:
+            name: authorizerFunc
+            resultTtlInSeconds: 0
+
+  updateContent:
+    handler: src/functions/content/updateContent.handler
+    events:
+      - http:
+          path: /api/content/{id}
+          method: put
+          cors: true
+          authorizer:
+            name: authorizerFunc
+            resultTtlInSeconds: 0
+
+  moderateContent:
+    handler: src/functions/content/moderateContent.handler
+    events:
+      - http:
+          path: /api/content/{id}/moderate
+          method: post
+          cors: true
+          authorizer:
+            name: authorizerFunc
+            resultTtlInSeconds: 0
+
+  # Survey Management
+  getSurveys:
+    handler: src/functions/surveys/getSurveys.handler
+    events:
+      - http:
+          path: /api/surveys
+          method: get
+          cors: true
+
+  submitSurvey:
+    handler: src/functions/surveys/submitSurvey.handler
+    events:
+      - http:
+          path: /api/surveys
+          method: post
+          cors: true
+
+  getSurveyResponses:
+    handler: src/functions/surveys/getSurveyResponses.handler
+    events:
+      - http:
+          path: /api/surveys/{id}/responses
+          method: get
+          cors: true
+          authorizer:
+            name: authorizerFunc
+            resultTtlInSeconds: 0
+
+  # Misinformation Reports
+  createReport:
+    handler: src/functions/reports/createReport.handler
+    events:
+      - http:
+          path: /api/reports
+          method: post
+          cors: true
+
+  getReports:
+    handler: src/functions/reports/getReports.handler
+    events:
+      - http:
+          path: /api/reports
+          method: get
+          cors: true
+          authorizer:
+            name: authorizerFunc
+            resultTtlInSeconds: 0
+
+  updateReport:
+    handler: src/functions/reports/updateReport.handler
+    events:
+      - http:
+          path: /api/reports/{id}
+          method: put
+          cors: true
+          authorizer:
+            name: authorizerFunc
+            resultTtlInSeconds: 0
+
+  # Authentication
+  authorizerFunc:
+    handler: src/functions/auth/authorizer.handler
+
+  # File Upload
+  getUploadUrl:
+    handler: src/functions/upload/getUploadUrl.handler
+    events:
+      - http:
+          path: /api/upload
+          method: post
+          cors: true
+          authorizer:
+            name: authorizerFunc
+            resultTtlInSeconds: 0
+
+resources:
+  Resources:
+    # DynamoDB Tables
+    HubsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.HUBS_TABLE}
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: region
+            AttributeType: S
+          - AttributeName: status
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        GlobalSecondaryIndexes:
+          - IndexName: RegionIndex
+            KeySchema:
+              - AttributeName: region
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+            BillingMode: PAY_PER_REQUEST
+          - IndexName: StatusIndex
+            KeySchema:
+              - AttributeName: status
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+            BillingMode: PAY_PER_REQUEST
+        BillingMode: PAY_PER_REQUEST
+
+    UsersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.USERS_TABLE}
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: email
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        GlobalSecondaryIndexes:
+          - IndexName: EmailIndex
+            KeySchema:
+              - AttributeName: email
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+            BillingMode: PAY_PER_REQUEST
+        BillingMode: PAY_PER_REQUEST
+
+    ContentTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.CONTENT_TABLE}
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: category
+            AttributeType: S
+          - AttributeName: status
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        GlobalSecondaryIndexes:
+          - IndexName: CategoryIndex
+            KeySchema:
+              - AttributeName: category
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+            BillingMode: PAY_PER_REQUEST
+          - IndexName: StatusIndex
+            KeySchema:
+              - AttributeName: status
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+            BillingMode: PAY_PER_REQUEST
+        BillingMode: PAY_PER_REQUEST
+
+    AnalyticsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.ANALYTICS_TABLE}
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: hubId
+            AttributeType: S
+          - AttributeName: timestamp
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        GlobalSecondaryIndexes:
+          - IndexName: HubTimestampIndex
+            KeySchema:
+              - AttributeName: hubId
+                KeyType: HASH
+              - AttributeName: timestamp
+                KeyType: RANGE
+            Projection:
+              ProjectionType: ALL
+            BillingMode: PAY_PER_REQUEST
+        BillingMode: PAY_PER_REQUEST
+
+    SurveysTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.SURVEYS_TABLE}
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: hubId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        GlobalSecondaryIndexes:
+          - IndexName: HubIndex
+            KeySchema:
+              - AttributeName: hubId
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+            BillingMode: PAY_PER_REQUEST
+        BillingMode: PAY_PER_REQUEST
+
+    ReportsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.REPORTS_TABLE}
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: status
+            AttributeType: S
+          - AttributeName: priority
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        GlobalSecondaryIndexes:
+          - IndexName: StatusIndex
+            KeySchema:
+              - AttributeName: status
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+            BillingMode: PAY_PER_REQUEST
+          - IndexName: PriorityIndex
+            KeySchema:
+              - AttributeName: priority
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+            BillingMode: PAY_PER_REQUEST
+        BillingMode: PAY_PER_REQUEST
+
+    # S3 Bucket for assets
+    AssetsBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:provider.environment.S3_BUCKET}
+        CorsConfiguration:
+          CorsRules:
+            - AllowedHeaders:
+                - "*"
+              AllowedMethods:
+                - GET
+                - PUT
+                - POST
+                - DELETE
+              AllowedOrigins:
+                - "*"
+              MaxAge: 3000
+        PublicAccessBlockConfiguration:
+          BlockPublicAcls: false
+          BlockPublicPolicy: false
+          IgnorePublicAcls: false
+          RestrictPublicBuckets: false
+
+    AssetsBucketPolicy:
+      Type: AWS::S3::BucketPolicy
+      Properties:
+        Bucket: !Ref AssetsBucket
+        PolicyDocument:
+          Statement:
+            - Effect: Allow
+              Principal: "*"
+              Action:
+                - s3:GetObject
+              Resource: !Sub "${AssetsBucket}/*"
