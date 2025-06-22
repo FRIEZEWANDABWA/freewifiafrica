@@ -2,7 +2,7 @@
   "name": "connected-access-hubs-frontend",
   "version": "1.0.0",
   "private": true,
-  "homepage": "https://yourusername.github.io/connected-access-hubs",
+  "homepage": "https://FRIEZEWANDABWA.github.io/connected-access-hubs",
   "dependencies": {
     "@aws-amplify/ui-react": "^6.0.0",
     "@headlessui/react": "^1.7.17",
