@@ -157,6 +157,184 @@ const HomePage: React.FC = () => {
         </div>
       </div>
 
+      {/* Gates Foundation Impact Stories */}
+      <div className="bg-white py-24 sm:py-32">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-2xl lg:text-center">
+            <h2 className="text-base font-semibold leading-7 text-indigo-600">Impact Stories</h2>
+            <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+              Gates Foundation in Africa
+            </p>
+            <p className="mt-6 text-lg leading-8 text-gray-600">
+              The Gates Foundation is transforming lives across Africa by investing in bold innovations and community-driven solutions—from malaria nets to high-tech agriculture. These stories celebrate real change in health, food security, and opportunity.
+            </p>
+          </div>
+          
+          <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
+            <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
+              <div className="flex flex-col">
+                <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-gray-900">
+                  <div className="h-10 w-10 flex items-center justify-center rounded-lg bg-red-600">
+                    <span className="text-white text-xl">🦟</span>
+                  </div>
+                  Malaria Prevention
+                </dt>
+                <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
+                  <p className="flex-auto">Distributing life-saving malaria nets across Nigeria, Uganda, and Tanzania, protecting millions of families from deadly mosquito-borne diseases.</p>
+                  <p className="mt-6">
+                    <Link to="/impact" className="text-sm font-semibold leading-6 text-indigo-600">
+                      Learn more <span aria-hidden="true">→</span>
+                    </Link>
+                  </p>
+                </dd>
+              </div>
+              
+              <div className="flex flex-col">
+                <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-gray-900">
+                  <div className="h-10 w-10 flex items-center justify-center rounded-lg bg-blue-600">
+                    <span className="text-white text-xl">💉</span>
+                  </div>
+                  HIV Prevention
+                </dt>
+                <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
+                  <p className="flex-auto">Revolutionary HIV prevention injections deployed in South Africa and Zimbabwe, offering new hope in the fight against AIDS.</p>
+                  <p className="mt-6">
+                    <Link to="/impact" className="text-sm font-semibold leading-6 text-indigo-600">
+                      Learn more <span aria-hidden="true">→</span>
+                    </Link>
+                  </p>
+                </dd>
+              </div>
+              
+              <div className="flex flex-col">
+                <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-gray-900">
+                  <div className="h-10 w-10 flex items-center justify-center rounded-lg bg-green-600">
+                    <span className="text-white text-xl">🫘</span>
+                  </div>
+                  Beans of the Future
+                </dt>
+                <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
+                  <p className="flex-auto">Iron-rich "beans of the future" transforming nutrition in Rwanda and Uganda, combating malnutrition with biofortified crops.</p>
+                  <p className="mt-6">
+                    <Link to="/solutions" className="text-sm font-semibold leading-6 text-indigo-600">
+                      Learn more <span aria-hidden="true">→</span>
+                    </Link>
+                  </p>
+                </dd>
+              </div>
+              
+              <div className="flex flex-col">
+                <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-gray-900">
+                  <div className="h-10 w-10 flex items-center justify-center rounded-lg bg-cyan-600">
+                    <span className="text-white text-xl">🐟</span>
+                  </div>
+                  Gift Fish Programs
+                </dt>
+                <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
+                  <p className="flex-auto">Supporting sustainable aquaculture across East Africa, providing communities with protein-rich food sources and economic opportunities.</p>
+                  <p className="mt-6">
+                    <Link to="/projects" className="text-sm font-semibold leading-6 text-indigo-600">
+                      Learn more <span aria-hidden="true">→</span>
+                    </Link>
+                  </p>
+                </dd>
+              </div>
+              
+              <div className="flex flex-col">
+                <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-gray-900">
+                  <div className="h-10 w-10 flex items-center justify-center rounded-lg bg-yellow-600">
+                    <span className="text-white text-xl">🌾</span>
+                  </div>
+                  Digital Agriculture
+                </dt>
+                <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
+                  <p className="flex-auto">High-tech agriculture and market access tools empowering farmers with data-driven insights and direct market connections.</p>
+                  <p className="mt-6">
+                    <Link to="/solutions" className="text-sm font-semibold leading-6 text-indigo-600">
+                      Learn more <span aria-hidden="true">→</span>
+                    </Link>
+                  </p>
+                </dd>
+              </div>
+              
+              <div className="flex flex-col">
+                <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-gray-900">
+                  <div className="h-10 w-10 flex items-center justify-center rounded-lg bg-purple-600">
+                    <span className="text-white text-xl">💊</span>
+                  </div>
+                  Malaria Vaccines
+                </dt>
+                <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
+                  <p className="flex-auto">Breakthrough malaria vaccines being deployed in Ghana, Kenya, and Malawi, marking a historic milestone in disease prevention.</p>
+                  <p className="mt-6">
+                    <Link to="/impact" className="text-sm font-semibold leading-6 text-indigo-600">
+                      Learn more <span aria-hidden="true">→</span>
+                    </Link>
+                  </p>
+                </dd>
+              </div>
+            </dl>
+            
+            {/* Additional Stories */}
+            <div className="mt-16 grid grid-cols-1 gap-8 lg:grid-cols-2">
+              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="h-12 w-12 flex items-center justify-center rounded-lg bg-blue-600">
+                    <span className="text-white text-2xl">🧬</span>
+                  </div>
+                  <h3 className="text-xl font-semibold text-gray-900">mRNA Vaccine Hubs</h3>
+                </div>
+                <p className="text-gray-600 mb-4">
+                  Establishing cutting-edge mRNA vaccine manufacturing facilities in Senegal and South Africa, building Africa's capacity for local vaccine production and pandemic preparedness.
+                </p>
+                <Link to="/impact" className="text-sm font-semibold text-blue-600 hover:text-blue-800">
+                  Read more about vaccine manufacturing →
+                </Link>
+              </div>
+              
+              <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-8">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="h-12 w-12 flex items-center justify-center rounded-lg bg-green-600">
+                    <span className="text-white text-2xl">💰</span>
+                  </div>
+                  <h3 className="text-xl font-semibold text-gray-900">$200B Commitment</h3>
+                </div>
+                <p className="text-gray-600 mb-4">
+                  Bill Gates' historic $200 billion pledge with the majority targeting African programs, representing the largest private commitment to global development and health equity.
+                </p>
+                <Link to="/solutions" className="text-sm font-semibold text-green-600 hover:text-green-800">
+                  Learn about the commitment →
+                </Link>
+              </div>
+            </div>
+            
+            {/* Call to Action */}
+            <div className="mt-16 text-center">
+              <div className="bg-gray-50 rounded-2xl p-8">
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">Explore More Impact Stories</h3>
+                <p className="text-gray-600 mb-6">
+                  Discover how innovative partnerships and community-driven solutions are creating lasting change across Africa.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Link
+                    to="/impact"
+                    className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
+                  >
+                    View All Stories
+                  </Link>
+                  <Link
+                    to="/projects"
+                    className="inline-flex items-center px-6 py-3 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+                  >
+                    See Our Projects
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* CTA Section */}
       <div className="bg-indigo-600">
         <div className="px-6 py-24 sm:px-6 sm:py-32 lg:px-8">
