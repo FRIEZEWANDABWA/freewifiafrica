@@ -1,11 +1,7 @@
 import React from 'react';
 import { 
   CurrencyDollarIcon, 
-  HeartIcon, 
-  UserGroupIcon, 
-  GlobeAltIcon,
-  AcademicCapIcon,
-  ShieldCheckIcon
+  HeartIcon
 } from '@heroicons/react/24/outline';
 
 const ImpactStoriesPage: React.FC = () => {
@@ -74,7 +70,7 @@ const ImpactStoriesPage: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {impactStories.map((story) => {
             const colorClasses = getColorClasses(story.color);
-            const [gradientClass, bgClass, textClass, borderClass] = colorClasses.split(' ');
+            const [gradientClass, bgClass, , borderClass] = colorClasses.split(' ');
             
             return (
               <div key={story.id} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">

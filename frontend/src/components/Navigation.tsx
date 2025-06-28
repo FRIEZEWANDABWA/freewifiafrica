@@ -5,8 +5,7 @@ import {
   XMarkIcon,
   GlobeAltIcon,
   ChartBarIcon,
-  UserGroupIcon,
-  Cog6ToothIcon
+  UserGroupIcon
 } from '@heroicons/react/24/outline';
 
 const Navigation: React.FC = () => {

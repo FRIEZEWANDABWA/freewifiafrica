@@ -78,6 +78,7 @@ const LiveFeedback: React.FC<LiveFeedbackProps> = ({ className = "" }) => {
     }, 30000);
 
     return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSubmitFeedback = async (e: React.FormEvent) => {

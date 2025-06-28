@@ -3,22 +3,13 @@ import { Link } from 'react-router-dom';
 import { 
   GlobeAltIcon, 
   UserGroupIcon, 
-  ChartBarIcon, 
-  WifiIcon,
-  AcademicCapIcon,
-  HeartIcon
+  ChartBarIcon
 } from '@heroicons/react/24/outline';
 import InteractiveStats from '../components/InteractiveStats';
 import LiveFeedback from '../components/LiveFeedback';
 import InteractiveDashboard from '../components/InteractiveDashboard';
 
 const HomePage: React.FC = () => {
-  const stats = [
-    { name: 'Active Hubs', value: '127', icon: WifiIcon },
-    { name: 'Communities Served', value: '45,000+', icon: UserGroupIcon },
-    { name: 'Educational Content Views', value: '2.3M', icon: AcademicCapIcon },
-    { name: 'Health Information Access', value: '890K', icon: HeartIcon },
-  ];
 
   const features = [
     {

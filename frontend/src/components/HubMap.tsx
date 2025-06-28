@@ -70,7 +70,7 @@ const HubMap: React.FC<HubMapProps> = ({
     
     useEffect(() => {
       map.setView(mapCenter, mapZoom);
-    }, [map, mapCenter, mapZoom]);
+    }, [map]);
 
     return null;
   };

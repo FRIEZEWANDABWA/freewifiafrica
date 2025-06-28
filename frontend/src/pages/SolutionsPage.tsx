@@ -1,6 +1,5 @@
 import React from 'react';
 import { 
-  WifiIcon, 
   AcademicCapIcon, 
   HeartIcon, 
   BriefcaseIcon,
