@@ -56,10 +56,9 @@ const InteractiveStats: React.FC<InteractiveStatsProps> = ({ className = "" }) =
   // Animate numbers on mount
   useEffect(() => {
     const timers = stats.map((_, index) => {
-      const currentStat = stats[index];
       return setTimeout(() => {
         let start = 0;
-        const end = currentStat.value;
+        const end = stats[index].value;
         const duration = 2000;
         const increment = end / (duration / 16);
 
@@ -79,7 +78,8 @@ const InteractiveStats: React.FC<InteractiveStatsProps> = ({ className = "" }) =
     });
 
     return () => timers.forEach(clearTimeout);
-  }, [stats]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Auto-rotate active stat
   useEffect(() => {
