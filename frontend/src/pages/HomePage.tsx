@@ -8,6 +8,9 @@ import {
   AcademicCapIcon,
   HeartIcon
 } from '@heroicons/react/24/outline';
+import InteractiveStats from '../components/InteractiveStats';
+import LiveFeedback from '../components/LiveFeedback';
+import InteractiveDashboard from '../components/InteractiveDashboard';
 
 const HomePage: React.FC = () => {
   const stats = [
@@ -97,22 +100,14 @@ const HomePage: React.FC = () => {
         </div>
       </div>
 
-      {/* Stats Section */}
+      {/* Interactive Stats Section */}
       <div className="bg-white py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <dl className="grid grid-cols-1 gap-x-8 gap-y-16 text-center lg:grid-cols-4">
-            {stats.map((stat) => (
-              <div key={stat.name} className="mx-auto flex max-w-xs flex-col gap-y-4">
-                <dt className="text-base leading-7 text-gray-600 flex items-center justify-center gap-2">
-                  <stat.icon className="h-6 w-6 text-indigo-600" />
-                  {stat.name}
-                </dt>
-                <dd className="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
-                  {stat.value}
-                </dd>
-              </div>
-            ))}
-          </dl>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Real-Time Impact</h2>
+            <p className="text-lg text-gray-600">Live data from our Connected Access Hubs across Africa</p>
+          </div>
+          <InteractiveStats />
         </div>
       </div>
 
@@ -332,6 +327,20 @@ const HomePage: React.FC = () => {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Interactive Dashboard Section */}
+      <div className="bg-gray-50 py-24 sm:py-32">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <InteractiveDashboard />
+        </div>
+      </div>
+
+      {/* Live Feedback Section */}
+      <div className="bg-white py-24 sm:py-32">
+        <div className="mx-auto max-w-4xl px-6 lg:px-8">
+          <LiveFeedback />
         </div>
       </div>
 
